@@ -7,6 +7,7 @@ module.exports = (req, res, next) => {
     }
     const decoded = jwtUtil.verifyToken(token);
     if (!decoded) {
+        console.log(token);
         return res.status(401).json({ message: 'Failed to authenticate token' });
     }
     req.userId = decoded.userId;
