@@ -4,7 +4,9 @@ const MFA = require('../utils/MFA_TOTP');
 const speakeasy = require('speakeasy');
 const { connection } = require('../config/db');
 
+
 exports.registerInitiate = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   console.log("Register endpoint hit");
   const { firstName, lastName, email, password, phoneNumber, roleId } = req.body;
 
