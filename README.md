@@ -149,6 +149,96 @@ Verifies the TOTP code sent to the user's email and completes the login process 
   { "message": "Internal server error" }
   ```
 
+### Forgot Password
+
+**URL:** `/forgot-password`
+
+**Method:** `POST`
+
+**Description:** Initiates the password reset process by requesting a reset link sent to the user's registered email address.
+
+**Request Body:**
+```json
+{
+  "email": "user@example.com"
+}
+```
+
+**Responses:**
+
+- `200 OK`: Password reset email sent.
+  ```json
+  {
+  "success": true,
+  "message": "Password reset email sent, please check your email."
+  }
+  ```
+- `400 Bad Request`: Email is required.
+  ```json
+  {
+  "success": false,
+  "message": "Email is required."
+  }
+  ```
+- `404 Not Found`: User not found
+  ```json
+  {
+  "success": false,
+  "message": "User not found"
+  }
+  ```
+- `500 Internal Server Error`: Database error.
+  ```json
+  {
+  "success": false,
+  "message": "Database error",
+  "error": "Error description here"
+  }
+  ```
+
+
+### Reset Password
+
+**URL:** `/reset-password`
+
+**Method:** `POST`
+
+**Description:** Completes the password resetting process by setting a new password using a valid reset token.
+
+**Request Body:**
+```json
+{
+  "token": "reset_token_received_in_email",
+  "password": "newPassword123"
+}
+```
+
+**Responses:**
+
+- `200 OK`: Password reset successfully.
+  ```json
+  {
+  "success": true,
+  "message": "Password reset successfully"
+  }
+  ```
+- `400 Bad Request`: Token and new password are required.
+  ```json
+  {
+  "success": false,
+  "message": "Token and new password are required."
+  }
+  ```
+- `500 Internal Server Error`: Internal server error.
+  ```json
+  {
+  "success": false,
+  "message": "Internal server error",
+  "error": "Error description here"
+  }
+  ```
+
+
 ## Utility Functions
 
 ### bcrypt
